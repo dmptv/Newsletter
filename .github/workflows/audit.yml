@@ -9,12 +9,17 @@ on:
       - "**/Cargo.lock"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   audit:
     name: cargo audit
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: taiki-e/install-action@cargo-audit
+      - uses: taiki-e/install-action@1c009442a2e6d2f0b3839e122123f418ae963a1e # cargo-audit
+        with:
+          tool: cargo-audit
       - name: Scan dependencies for known vulnerabilities
         run: cargo audit
